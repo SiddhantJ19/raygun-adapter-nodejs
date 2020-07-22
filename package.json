@@ -1,0 +1,20 @@
+{
+  "name": "raygun-adapter-nodejs",
+  "version": "1.0.0",
+  "description": "Nodejs error logging adpter for raygun",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "logging",
+    "error",
+    "adapter"
+  ],
+  "author": "SiddhantJ19",
+  "license": "ISC",
+  "dependencies": {
+    "superagent": "^5.3.1"
+  }
+}

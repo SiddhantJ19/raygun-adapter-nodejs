@@ -2,6 +2,7 @@ const config = require('./utils/config')
 const evntListeners = require('./utils/eventlisteners');
 const interceptors = require('./utils/interceptors');
 const {errorHandler} = require('./utils/middleware');
+const emitError = require('./utils/broker').error;
 
 const init = (conf) => {
   if (config.isValid(conf)) {
@@ -16,5 +17,6 @@ const init = (conf) => {
 
 module.exports = {
   init,
-  errorHandler
+  errorHandler,
+  emitError,
 };

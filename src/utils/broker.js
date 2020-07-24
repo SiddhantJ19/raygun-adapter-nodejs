@@ -19,7 +19,6 @@ const broker = () => {
         message,
         stacktrace: stack,
         capturedLogs,
-        // adapter info
         type: name || 'error'
       };
 
@@ -29,6 +28,9 @@ const broker = () => {
       console.error(
           'Failed to register event with raygun with error\n\n', error);
     }
+    try {
+      await config.serveTrack(event, "error");
+    } catch (error) { }
   };
   return {
     error

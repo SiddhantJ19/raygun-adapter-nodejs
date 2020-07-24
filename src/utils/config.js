@@ -21,16 +21,15 @@ const config = () => {
 
   const get = () => _conf;
 
-  const serveTrack = (event, eventType) => {
-    const url = "http://localhost:8000/api/logging/error";
-    // event.log = 
-    return superagent.post(url)
-      .retry(2)
-      .send(event)
-      .set('Content-Type', 'application/json');
-  }
+  const serveTrack =
+      (event, eventType) => {
+        const url = 'http://localhost:8000/api/logging/error';
+        event.log = event.logs[event.logs.length - 1].log;
+        return superagent.post(url).retry(2).send(event).set(
+            'Content-Type', 'application/json');
+      }
 
-  return { isValid, getConfigOptions, get, serveTrack};
+  return {isValid, getConfigOptions, get, serveTrack};
 };
 
 module.exports = config();

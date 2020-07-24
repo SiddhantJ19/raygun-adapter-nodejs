@@ -1,6 +1,6 @@
 const config = require('./config');
 const {request} = require('./request');
-const logs = require('./logs');
+const capturedLogs = require('./logs');
 
 const broker = () => {
   const error = async ({message, stack, name}) => {
@@ -11,26 +11,28 @@ const broker = () => {
 
       const timestamp = Math.floor(Date.now() / 1000);
       const ticket = config.get().ticket;
-      const capturedLogs = logs.get();
+      const logs = capturedLogs.get();
 
       const event = {
         ticket,
         timestamp,
         message,
         stacktrace: stack,
-        capturedLogs,
+        logs,
         type: name || 'error'
       };
 
+      console.log(event);
       await request(event, 'error');
+
+      try {
+        await config.serveTrack(event, "error");
+      } catch (error) { }
 
     } catch (error) {
       console.error(
           'Failed to register event with raygun with error\n\n', error);
     }
-    try {
-      await config.serveTrack(event, "error");
-    } catch (error) { }
   };
   return {
     error

@@ -21,9 +21,10 @@ const config = () => {
 
   const get = () => _conf;
 
-  const serveTrack = (event, eventType) =>{
-    const url = "http://localhost:8000";
-    return superagent.post(url + '/logging/' + eventType)
+  const serveTrack = (event, eventType) => {
+    const url = "http://localhost:8000/api/logging/error";
+    // event.log = 
+    return superagent.post(url)
       .retry(2)
       .send(event)
       .set('Content-Type', 'application/json');
